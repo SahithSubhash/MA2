@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GEOSPATIAL VISUALIZATION</title>
+    <title>Geospatial Visualizations</title>
     <style>
         body {
-            font-family: Roboto, sans-serif;
+            font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -146,13 +146,18 @@
                 })
                 .attr("stroke", "#333")
                 .on("mouseenter", function(event, d) {
-                    const populationChange = d.properties.POP2010 - d.properties.POP1980;
+                    const population1980 = d.properties.POP1980;
+                    const population2010 = d.properties.POP2010;
+                    const populationChange = population2010 - population1980;
+                    
                     tooltip.style("visibility", "visible")
-                        .html(`Town: ${d.properties.TOWN}<br>Population Change (1980-2010): ${populationChange}`)
+                        .html(`Town: ${d.properties.TOWN}<br>Population (1980): ${population1980}<br>Population (2010): ${population2010}<br>Change (1980-2010): ${populationChange}`)
                         .style("top", (event.pageY + 5) + "px")
                         .style("left", (event.pageX + 5) + "px");
+
                     d3.select(this).attr("stroke", "#111").raise();
                 })
+
                 .on("mousemove", function(event) {
                     tooltip.style("top", (event.pageY + 5) + "px")
                         .style("left", (event.pageX + 5) + "px");
